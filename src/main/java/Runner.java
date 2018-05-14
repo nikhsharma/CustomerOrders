@@ -1,5 +1,7 @@
 import db.DBCustomer;
+import db.DBOrder;
 import models.Customer;
+import models.Order;
 
 import java.util.List;
 
@@ -17,5 +19,19 @@ public class Runner {
         DBCustomer.update(customer2);
 
         List<Customer> customers = DBCustomer.getCustomers();
+
+
+        Order order1 = new Order("order", 3);
+        DBOrder.save(order1);
+
+        Order order2 = new Order("order2", 5);
+        DBOrder.save(order2);
+
+        DBOrder.delete(order1);
+
+        order2.setQuantity(10);
+        DBOrder.update(order2);
+
+        List<Order> orders = DBOrder.getOrders();
     }
 }
