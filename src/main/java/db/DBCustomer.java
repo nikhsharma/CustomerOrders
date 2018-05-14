@@ -2,8 +2,11 @@ package db;
 
 import models.Customer;
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+
+import java.util.List;
 
 public class DBCustomer {
 
@@ -13,11 +16,24 @@ public class DBCustomer {
     public static void save(Customer customer) {
         session = HibernateUtil.getSessionFactory().openSession();
         try {
-            transaction= session.beginTransaction();
+            transaction = session.beginTransaction();
             session.save(customer);
             transaction.commit();
         } catch (HibernateException e) {
             transaction.rollback();
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+    }
+
+    public static List<Customer> getCustomers() {
+        session = HibernateUtil.getSessionFactory().openSession();
+        List<Customer> results;
+        try {
+            String hql = "from customers";
+            results = session.createQuery(hql).list();
+        } catch (HibernateException e) {
             e.printStackTrace();
         } finally {
             session.close();
