@@ -54,4 +54,18 @@ public class DBCustomer {
             session.close();
         }
     }
+
+    public static void update(Customer customer) {
+        session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            transaction = session.beginTransaction();
+            session.update(customer);
+            transaction.commit();
+        } catch (HibernateException e) {
+            transaction.rollback();
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+    }
 }

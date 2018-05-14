@@ -13,6 +13,9 @@ public class Runner {
 
         DBCustomer.delete(customer1);
 
+        customer2.setAddress("14 Street Street");
+        DBCustomer.update(customer2);
+
         List<Customer> customers = DBCustomer.getCustomers();
     }
 }
