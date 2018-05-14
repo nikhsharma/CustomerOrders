@@ -29,14 +29,15 @@ public class DBCustomer {
 
     public static List<Customer> getCustomers() {
         session = HibernateUtil.getSessionFactory().openSession();
-        List<Customer> results;
+        List<Customer> results = null;
         try {
-            String hql = "from customers";
+            String hql = "from Customer";
             results = session.createQuery(hql).list();
         } catch (HibernateException e) {
             e.printStackTrace();
         } finally {
             session.close();
         }
+        return results;
     }
 }
